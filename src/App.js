@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Header from './components/header/Header.js';
+import Calculator from './components/calculator/Calculator';
+import Graph2D from './components/graph2D/Graph2D';
+import Graph3D from './components/graph3D/Graph3D';
 
 function App() {
+
+  const [activeButton, setActiveButton] = useState('graph2D');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header
+        activeButton = {activeButton}
+        key = {activeButton}
+        setActiveButton = {name => setActiveButton(name)}
+      />
+      {activeButton === 'calculator' ?
+      <Calculator /> :
+      activeButton === 'graph2D' ?
+      <Graph2D /> :
+      activeButton === 'graph3D' ?
+      <Graph3D /> : ''}
     </div>
   );
 }
