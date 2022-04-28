@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from './button/Button.js';
-import './header.css';
 
 class Header extends React.Component {
     constructor(props) {

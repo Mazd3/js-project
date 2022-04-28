@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './App.css';
 import Header from './components/header/Header.js';
 import Calculator from './components/calculator/Calculator';
 import Graph2D from './components/graph2D/Graph2D';

@@ -28,7 +28,7 @@ class Canvas {
         return this.canvas.height - ((y - this.WIN.BOTTOM) * this.canvas.height / this.WIN.HEIGHT);
     }
     clear() {
-        this.context.fillStyle = '#EEEEEE'; // background 
+        this.context.fillStyle = '#fff'; // background 
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.fillStyle = "#A00"; // цвет названия оси
         this.context.font = "italic 15pt Arial";
