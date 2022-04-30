@@ -24,21 +24,39 @@ class FuncInput extends React.Component {
         this.draw();
     }
 
-    render(){
+    
+
+    render() {
         return(
             <div
                 onClick={ () => this.draw() }
             >
-                <input
+                <input 
                     placeholder="y=f(x)"
                     defaultValue={ this.funcs.f }
                     onChange={ (e) => this.setFunction(e) }
                 ></input>
-                <input
+                <input // толщина
+                        type='number'
+                ></input>
+                <input // цвет
                         onChange={ (e) => this.setColor(e)}
                         type='color'
                 ></input>
-                <button 
+                <input
+                    onClick={ () => { this.funcs[this.id].drawDerivative = !this.funcs[this.id].drawDerivative} }
+                    type='checkbox'
+                >
+                </input>
+                <input // начало отрезка интеграла
+                        type='number'
+                        onChange={ (e) => this.funcs[this.id].startIntegral = e.target.value }
+                ></input>
+                <input // конец отрезка интеграла
+                        type='number'
+                        onChange={ (e) => this.funcs[this.id].endIntegral = e.target.value }
+                ></input>
+                <button  // удалить функцию
                     onClick={ () => this.delFunc(this.id) }
                 >Delete</button>
             </div>

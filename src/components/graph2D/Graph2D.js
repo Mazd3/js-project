@@ -16,6 +16,7 @@ class Graph2D extends React.Component {
     }
 
 
+
     render() {
         return(
             <div>
@@ -23,7 +24,7 @@ class Graph2D extends React.Component {
                     <canvas 
                         id='canvas'
                         onWheel={ (event) => this.wheel(event) }
-                        onMouseMove={ (event) => this.move(event) }
+                        onMouseMove={ event => this.mouseMove(event) }
                         onMouseDown={ () => this.down() }
                         onMouseUp={ () => this.up() }
                     />
@@ -44,6 +45,11 @@ class Graph2D extends React.Component {
             height: 600,
         });
         this.draw();
+    }
+
+    mouseMove(event) {
+        this.move(event);
+        this.derivativeX = this.WIN.LEFT + this.canvas.sx(event.nativeEvent.offsetX);
     }
 
     printFunction(f, color, width) {
@@ -92,8 +98,8 @@ class Graph2D extends React.Component {
         return ((f(x0 + dx) - f(x0)) / dx);
     }
 
-    printIntegral(f, a, b, n = 100) {
-        const dx = (b - a) / n;
+    printIntegral(f, a, b) {
+        const dx = (b - a) / 100;
         let x = a;
         const points = [];
         points.push({ x, y: 0 });
@@ -108,11 +114,11 @@ class Graph2D extends React.Component {
     getIntegral(f, a, b, n = 100) {
         const dx = (b - a) / n;
         let x = a;
-        let S = 0;
+        let s = 0;
         while (x <= b) {
-            S += f(x) + f(x + dx) / 2 * dx;
-            x += dx;
+            s += (f(x) + f(x = dx)) / 2 * dx;
         }
+        return s;
     }
 
     printDerivative(f, x0, dx) {
@@ -163,11 +169,14 @@ class Graph2D extends React.Component {
         this.arrows();
         this.funcs.forEach((func) => {
             if (func) {
-                // this.printIntegral(func.f, 1, 5);
                 this.printFunction(func.f, func.color, func.width);
-                // this.printDerivative(func.f, this.derivativeX);
+            if (func.drawDerivative) {
+                this.printDerivative(func.f, this.derivativeX);
             }
-        });
+            if (func.startIntegral || func.endIntegral) {
+                this.printIntegral(func.f, func.startIntegral, func.endIntegral);
+            }
+        }});
     }
 
 }

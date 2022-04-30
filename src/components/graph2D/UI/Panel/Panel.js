@@ -13,7 +13,10 @@ class Panel extends React.Component {
         this.funcs.push({
             f: () => null,
             color: '#A00',
-            width: 2
+            width: 2,
+            drawDerivative : false,
+            startIntegral : 0,
+            endIntegral : 0
         });
         this.setState({ funcsLength : this.funcs.length });
     }
