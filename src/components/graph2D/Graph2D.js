@@ -98,28 +98,29 @@ class Graph2D extends React.Component {
         return ((f(x0 + dx) - f(x0)) / dx);
     }
 
-    printIntegral(f, a, b) {
-        const dx = (b - a) / 100;
+    printIntegral(f, a, b, n = 100) {
+        const dx = (b - a) / n;
         let x = a;
         const points = [];
-        points.push({ x, y: 0 });
-        while (x <= b) {
-            points.push({ x, y: f(x) });
-            x += dx;
+        points.push({x, y: 0});
+        while(x < b) {
+          points.push({x, y: f(x)});
+          x += dx;
         }
-        points.push({ x: b, y: 0 });
-        this.canvas.polygon(points);
-    }
+        points.push({x: b, y: 0});
+        this.canvas.polygon(points, 'rgba(255, 60, 135, 0.5)');
+      }
 
     getIntegral(f, a, b, n = 100) {
         const dx = (b - a) / n;
         let x = a;
         let s = 0;
-        while (x <= b) {
-            s += (f(x) + f(x = dx)) / 2 * dx;
+        while (x < b) {
+          s +=  ((f(x) + f(x + dx)) / 2) * dx;
+          x += dx
         }
         return s;
-    }
+      }
 
     printDerivative(f, x0, dx) {
         const k = this.getDerivative(f, x0, dx);

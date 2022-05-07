@@ -24,7 +24,22 @@ class FuncInput extends React.Component {
         this.draw();
     }
 
-    
+    setWidth(e) {
+        this.funcs[this.id].width = e.target.value;
+        this.draw();
+    }
+
+    setIntegral(e, isStart) {
+        isStart ? 
+            this.funcs[this.id].startIntegral = +e.target.value :
+            this.funcs[this.id].endIntegral = +e.target.value ;
+        this.draw();
+    }
+
+    setDrawDerivative() {
+        this.funcs[this.id].drawDerivative = !this.funcs[this.id].drawDerivative;
+        this.draw();
+    }
 
     render() {
         return(
@@ -38,23 +53,24 @@ class FuncInput extends React.Component {
                 ></input>
                 <input // толщина
                         type='number'
+                        onChange={ (e) => this.setWidth(e) }
                 ></input>
                 <input // цвет
                         onChange={ (e) => this.setColor(e)}
                         type='color'
                 ></input>
                 <input
-                    onClick={ () => { this.funcs[this.id].drawDerivative = !this.funcs[this.id].drawDerivative} }
+                    onClick={ () => this.setDrawDerivative() }
                     type='checkbox'
                 >
                 </input>
                 <input // начало отрезка интеграла
                         type='number'
-                        onChange={ (e) => this.funcs[this.id].startIntegral = e.target.value }
+                        onChange={ (e) => this.setIntegral(e, true) }
                 ></input>
                 <input // конец отрезка интеграла
                         type='number'
-                        onChange={ (e) => this.funcs[this.id].endIntegral = e.target.value }
+                        onChange={ (e) => this.setIntegral(e, false) }
                 ></input>
                 <button  // удалить функцию
                     onClick={ () => this.delFunc(this.id) }
